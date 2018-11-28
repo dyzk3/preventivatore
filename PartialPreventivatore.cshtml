@@ -1,0 +1,2156 @@
+﻿<!-- Modal crea preventivo standard -->
+<div class="modal bs-example-modal-lg fade " data-backdrop="static" id="creaPreventivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Crea un preventivo</h4>
+            </div>
+            <div class="modal-body" id="">
+                <input type="hidden" value="@ViewBag.model_preventivatore.id_richiesta" name="id_richiesta_prev" id="id_richiesta_prev" />
+
+                <div class="wizard wiz_preventivo">
+                    <div class="wizard-inner">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#prev_step1" data-toggle="tab" aria-controls="prev_step1" role="tab" title="INTESTAZIONE" data-original-title="INTESTAZIONE" aria-expanded="true">
+                                    @*<span class="round-tab">
+                                            <i class="glyphicon glyphicon-folder-open"></i>
+                                        </span>*@
+                                    1.INTESTAZIONE
+                                </a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#prev_step2" data-toggle="tab" aria-controls="prev_step2" role="tab" title="PRODOTTI" data-original-title="PRODOTTI">
+                                    @*<span class="round-tab">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                            aaa
+                                        </span>*@
+                                    2.PRODOTTI
+                                </a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#prev_step3" data-toggle="tab" aria-controls="prev_step3" role="tab" title="PREZZI" data-original-title="PREZZI">
+                                    @*<span class="round-tab">
+                                            <i class="glyphicon glyphicon-picture"></i>
+                                        </span>*@
+                                    3.PREZZI
+                                </a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="RIEPILOGO" data-original-title="RIEPILOGO">
+                                    @*<span class="round-tab">
+                                            <i class="glyphicon glyphicon-ok"></i>
+                                        </span>*@
+                                    4.RIEPILOGO
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="spazio_med_bottom"></div>
+                    <form role="form" id="form_preventivatore" name="form_preventivatore">
+                        <div class="tab-content">
+                            <div class="tab-pane active" role="tabpanel" id="prev_step1">
+                                <div class="form-title">
+                                    DATI PREVENTIVO
+                                </div>
+                                <div class="clearfix  spazio_low_top"></div>
+                                <div class="col-sm-12 col-md-6 nopadding-left">
+                                    <div class="form-group">
+                                        <input type="text" value="" maxlength="50" class="form-control prev_required" readonly="readonly" name="edit_prev_codice" id="edit_prev_codice" />
+                                        <label>Codice<span class="red">*</span></label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-12 col-md-6 nopadding-right">
+                                    <div class="form-group ">
+                                        <select name="edit_prev_pagamento" class="prev_required" id="edit_prev_pagamento">
+                                            <option value="" @(ViewBag.model_preventivatore.pagamento == "" ? "selected='selected'" : "")>------</option>
+                                            <option value="contanti" @(ViewBag.model_preventivatore.pagamento == "contanti" ? "selected='selected'" : "")>CONTANTI</option>
+                                            <option value="bonifico" @(ViewBag.model_preventivatore.pagamento == "bonifico" ? "selected='selected'" : "")>BONIFICO</option>
+                                            <option value="carta" @(ViewBag.model_preventivatore.pagamento == "carta" ? "selected='selected'" : "")>CARTA DI CREDITO</option>
+                                            <option value="finanziamento" @(ViewBag.model_preventivatore.pagamento == "finanziamento" ? "selected='selected'" : "")>FINANZIAMENTO</option>
+                                            <option value="pagodil" @(ViewBag.model_preventivatore.pagamento == "pagodil" ? "selected='selected'" : "")>PAGODIL</option>
+                                        </select>
+                                        <label>Metodo pagamento<span class="red">*</span></label>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="col-sm-12 col-md-6 nopadding-left">
+                                    <div class="form-group">
+
+                                        <input type="text" value="@ViewBag.model_preventivatore.data_emissione" class="form-control date-picker prev_required" data-date-format="dd/mm/yyyy" name="edit_prev_emissione" id="edit_prev_emissione" />
+                                        <label>Data Emissione<span class="red">*</span></label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-12 col-md-6 nopadding-right">
+                                    <div class="form-group ">
+                                        <input type="text" value="@ViewBag.model_preventivatore.data_scadenza" class="form-control date-picker prev_required" data-date-format="dd/mm/yyyy" name="edit_prev_scadenza" id="edit_prev_scadenza" />
+                                        <label>Data Scadenza<span class="red">*</span></label>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="spazio_low_bottom"></div>
+
+                                <div class="form-title">
+                                    DATI RICAVATI DAL TAB PRIMO CONTATTO
+                                </div>
+                                <div class="clearfix  spazio_low_top"></div>
+                                <div class="col-sm-12 col-md-6 nopadding-left">
+                                    <div class="form-group">
+                                        <span class="input-icon icon-right">
+                                            <input type="text" value="@ViewBag.model_preventivatore.nome" maxlength="50" class="form-control prev_required" name="edit_prev_nomeContatto" id="edit_prev_nomeContatto" />
+                                        </span>
+                                        <label>Nome <span class="red">*</span></label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-12 col-md-6 nopadding-right">
+                                    <div class="form-group ">
+                                        <span class="input-icon icon-right">
+                                            <input type="text" value="@ViewBag.model_preventivatore.cognome" maxlength="50" class="form-control prev_required" name="edit_prev_cognomeContatto" id="edit_prev_cognomeContatto" />
+                                        </span>
+                                        <label>Cognome <span class="red">*</span></label>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                <div class="col-sm-12 col-md-6 nopadding-left">
+                                    <div class="form-group ">
+                                        <span class="input-icon icon-right">
+                                            <input type="text" value="@ViewBag.model_preventivatore.mail" maxlength="50" class="form-control prev_required" name="edit_prev_mailContatto" id="edit_prev_mailContatto" />
+                                        </span>
+                                        <label>Email<span class="red">*</span></label>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 nopadding-right">
+                                    <div class="form-group ">
+                                        <span class="input-icon icon-right">
+                                            <input type="text" value="@ViewBag.model_preventivatore.telefono" maxlength="50" class="form-control prev_required" name="edit_prev_telContatto" id="edit_prev_telContatto" />
+                                        </span>
+                                        <label>Telefono<span class="red">*</span></label>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="spazio_low_bottom"></div>
+                                <p><em><span class="red">* Campi obbligatori</span></em></p>
+
+                                <ul class="list-inline pull-right btn_steps">
+                                    <li><button type="button" data-prev_step="1" class="btn btn-arancio next-step">Scegli i prodotti</button></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="tab-pane " role="tabpanel" id="prev_step2">
+                                @*PRODOTTO*@
+                                <div class="col-xs-12 nopadding-all">
+
+
+
+                                    <div class="col-xs-12 nopadding-right caratteristicheProdotto nopadding-left nopadding-right">
+                                        <div class="form-title">
+                                            PRODOTTI
+                                            @if (ViewBag.check_eni == true)
+                                            {
+                                                <button type="button" class="btn btn-arancio btn-xs pull-right" onclick="getProdottiPreventivoEni();" data-toggle="modal" data-target="#addProdottoPreventivo">
+                                                    AGGIUNGI PRODOTTO
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-arancio btn-xs pull-right" onclick="getProdottiPreventivo();" data-toggle="modal" data-target="#addProdottoPreventivo">
+                                                    AGGIUNGI PRODOTTO
+                                                </button>
+                                            }
+                                        </div>
+
+
+                                        <div class="clearfix"></div>
+                                        <table cellpadding="0" cellspacing="0" border="0" class="table table-hover" id="tabellaProdottoPreventivo">
+                                            <thead class="bordered-darkorange">
+                                                <tr>
+                                                    <th class="col-xs-6">Nome prodotto</th>
+                                                    <th class="col-xs-2">Prezzo Ivato (x1)</th>
+                                                    <th class="col-xs-1">Qta</th>
+                                                    <th class="col-xs-2">Sku</th>
+                                                    <th class="col-xs-1">Del</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @*@foreach (var prodotto_inlista in ViewBag.model_preventivatore.prodotti)
+                        {
+                            <tr id="prodotto_prev_@prodotto_inlista.id_prodotto" class="riga_prodotto" data-idprod="@(prodotto_inlista.id_prodotto)" data-costo="@(prodotto_inlista != null ? (prodotto_inlista.costo != null ? (prodotto_inlista.costo.ToString("0.##") ?? "n/a") : "") : "n/a" )">
+                                <td><span class="prev_titoloProdotto">@(prodotto_inlista != null ? prodotto_inlista.titolo : "Nessun prodotto!")</span></td>
+                                <td><span class="prev_prodotto_prezzo">@(prodotto_inlista != null ? prodotto_inlista.prezzo.ToString("0.##") : "")</span> &euro;</td>
+                                <td>
+                                    <input type="text" value="@(prodotto_inlista != null ? prodotto_inlista.qta.ToString() : "1")" name="qty" class="prev_prodotto_qta">
+                                </td>
+                                <td>
+                                    <span class="prev_prodotto_sku">@(prodotto_inlista != null ? prodotto_inlista.sku : "")</span>
+
+                                </td>
+                                <td>
+                                    <button type="button" class="btn-arancio btn btn-sm" onclick="delProdottoPreventivo(@prodotto_inlista.id_prodotto,@ViewBag.model_preventivatore.id_richiesta); return false;">X</button>
+                                </td>
+                            </tr>
+                        }*@
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="spazio_med_bottom"></div>
+                                @*ACCESSORI*@
+                                <div class="col-xs-12 nopadding-all">
+
+
+                                    <div class="col-sm-12 col-md-12 nopadding-left nopadding-right">
+                                        <div class="form-title">
+                                            ACCESSORI
+                                            @if (ViewBag.check_eni == true)
+                                            {
+                                                <button type="button" class="btn btn-arancio btn-xs pull-right" onclick="getAccessoriPreventivoEni();" data-toggle="modal" data-target="#addAccessorioPreventivo">
+                                                    AGGIUNGI ACCESSORIO
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-arancio btn-xs pull-right" onclick="getAccessoriPreventivo();" data-toggle="modal" data-target="#addAccessorioPreventivo">
+                                                    AGGIUNGI ACCESSORIO
+                                                </button>
+                                            }
+                                        </div>
+                                        <div class="form-group">
+
+
+
+                                            <table cellpadding="0" cellspacing="0" border="0" class="table table-hover" id="tabellaAccessoriPreventivo">
+                                                <thead class="bordered-darkorange">
+                                                    <tr>
+                                                        <th class="col-xs-7">Accessori</th>
+                                                        <th class="col-xs-2">Prezzo unitario</th>
+                                                        <th class="col-xs-3">Seleziona</th>
+                                                        <th class="col-xs-1">Del</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @*@{
+                                    int g = 0;
+                                    if (ViewBag.model_preventivatore.accessori.Count != 0)
+                                    {
+                                        foreach (var item_opzionale in ViewBag.model_preventivatore.accessori)
+                            {
+                                int id_richiesta = ViewBag.model_preventivatore.id_richiesta;
+
+                                //richieste_accessori_match accessorio_opz = ctx.richieste_accessori_match.Where(x => x.id_accessorio == item_opzionale.Id && x.id_kit == 5 && x.id_richiesta == id_richiesta && x.accessori.abilitato == true).FirstOrDefault();
+                                int qta_attuale_acc_opz = 0; // azzero tutto // accessorio_opz == null ? 0 : accessorio_opz.qta;
+                                int max_qta_disp = 100;
+                                /*switch (item_opzionale.Id)
+                                {
+                                    case 97:
+                                    case 99:
+                                    case 215:
+                                        max_qta_disp = 30;
+                                        break;
+                                    case 105:
+                                        max_qta_disp = 30;
+                                        break;
+                                }*/
+                                <tr class="riga_accessorio" id="accessorio_prev_@item_opzionale.id_accessorio" data-idacc="@(item_opzionale.id_accessorio)" data-costo="@(item_opzionale != null ? (item_opzionale.costo != null ? (item_opzionale.costo.ToString("0.##") ?? "n/a") : "") : "n/a" )">
+                                    <td >
+                                        @item_opzionale.titolo
+                                    </td>
+                                    <td >
+                                        @item_opzionale.prezzo_installato.ToString("0.##") &euro;
+                                    </td>
+                                    <td >
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default btn-number" @(qta_attuale_acc_opz == 0 ? "disabled='disabled'" : "") data-type="minus" data-field="prev_quant_acc_opz[@g][qta]">
+                                                    <span class="glyphicon glyphicon-minus"></span>
+                                                </button>
+                                            </span>
+                                            <input type="text" name="prev_quant_acc_opz[@g][qta]" id="prev_quant_acc_opz@(g)" class="form-control input-number prev_accessori_kk" value="@qta_attuale_acc_opz" min="0" max="@max_qta_disp" />
+                                            <input type="hidden" name="prev_quant_acc_opz[@g][id]" readonly class="form-control prev_accessori_kk" value="@(item_opzionale.id_accessorio)" />
+                                            <input type="hidden" name="prev_quant_acc_opz[@g][nome]" readonly class="form-control prev_accessori_kk" value="@(item_opzionale.titolo)" />
+                                            <input type="hidden" name="prev_quant_acc_opz[@g][prezzo]" readonly class="form-control prev_accessori_kk" value="@(item_opzionale.prezzo_installato.ToString("0.##"))" />
+                                            <input type="hidden" name="prev_quant_acc_opz[@g][costo]" readonly class="form-control prev_accessori_kk" value="@(item_opzionale.costo.ToString("0.##"))" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default btn-number" @(qta_attuale_acc_opz == max_qta_disp ? "disabled='disabled'" : "") data-type="plus" data-field="prev_quant_acc_opz[@g][qta]">
+                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn-arancio btn btn-sm" onclick="delAccessorioPreventivo(@item_opzionale.id_accessorio,@ViewBag.model_preventivatore.id_richiesta); return false;">X</button>
+                                    </td>
+                                </tr>
+                                                ++g;
+                                            }
+                                        }
+
+                                    }*@
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="spazio_med_bottom"></div>
+                                @*DETTAGLI IMPIANTO*@
+                                <div class="col-xs-12 nopadding-all">
+
+
+                                    <div class="col-sm-12 col-md-12 nopadding-left nopadding-right">
+                                        <div class="form-title">
+                                            DETTAGLI IMPIANTO
+                                        </div>
+                                        <div class="form-group">
+
+                                            <div class="col-sm-12 col-md-3 nopadding-right">
+                                                <div class="form-group ">
+                                                    <label>Kit Fumi<span class="red">*</span></label>
+                                                    <select name="" class="" id="kitfumi">
+                                                        <option value="---">------</option>
+                                                        <option value="coassiale">Coassiale</option>
+                                                        <option value="sdoppiato">Sdoppiato</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <script>
+                                                $(function () {
+                                                    $('#kitfumi').change(function () {
+                                                        $('.kitf').hide();
+                                                        $('#' + $(this).val()).show();
+                                                    });
+                                                });
+                                            </script>
+                                            <div class="col-sm-12 col-md-3 nopadding-right">
+                                                <div class="form-group ">
+                                                    <label>Tipo Immobile<span class="red">*</span></label>
+                                                    <select name="" class="" id="tipoimmobile">
+                                                        <option value="---">------</option>
+                                                        <option value="attico">Attico</option>
+                                                        <option value="villaaschiera">Villa a schiera</option>
+                                                        <option value="strutturarecettiva">Struttura recettiva</option>
+                                                        <option value="rusticocascina">Rustico/Cascina</option>
+                                                        <option value="ufficio">Ufficio</option>
+                                                        <option value="negozio">Negozio</option>
+                                                        <option value="alloggiocondominiale">Alloggio condominiale</option>
+                                                        <option value="villa">Villa</option>
+                                                        <option value="mansarda">Mansarda</option>
+                                                        <option value="interrato">Interrato</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <script>
+                                                $(function () {
+                                                    $('#tipoimmobile').change(function () {
+                                                        $('.immo').hide();
+                                                        $('#' + $(this).val()).show();
+                                                    });
+                                                });
+                                            </script>
+                                            <div class="col-sm-12 col-md-3 nopadding-right">
+                                                <div class="form-group ">
+                                                    <label>Tipo Installazione<span class="red">*</span></label>
+                                                    <select name="" class="" id="tipoinstallazione">
+                                                        <option value="--- ">------</option>
+                                                        <option value="ponteggio">Ponteggio</option>
+                                                        <option value="trabatello">Trabatello</option>
+                                                        <option value="piattaforma">Piattaforma</option>
+                                                        <option value="montacarichi">Montacarichi</option>
+                                                        <option value="---">Altro</option>
+                                                        <option value="---">No</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <script>
+                                                $(function () {
+                                                    $('#tipoinstallazione').change(function () {
+                                                        $('.insta').hide();
+                                                        $('#' + $(this).val()).show();
+                                                    });
+                                                });
+                                            </script>
+                                            <div class="col-sm-12 col-md-3 nopadding-right">
+                                                <div class="form-group ">
+                                                    <label>Opere Murarie<span class="red">*</span></label>
+                                                    <select name="" class="" id="operemurarie">
+                                                        <option value="">------</option>
+                                                        <option value="si">Si</option>
+                                                        <option value="no">No</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <script>
+                                                $(function () {
+                                                    $('#operemurarie').change(function () {
+                                                        $('.opere').hide();
+                                                        $('#' + $(this).val()).show();
+                                                    });
+                                                });
+                                            </script>
+
+
+
+                                            <table cellpadding="0" cellspacing="0" border="0" class="table table-hover" id="tabellaAccessoriPreventivo">
+                                                <thead class="bordered-darkorange">
+                                                    <tr>
+                                                        <th class="col-xs-5">Nome</th>
+                                                        <th class="col-xs-1">Incluso</th>
+                                                        <th class="col-xs-3">Misure</th>
+                                                        <th class="col-xs-1">Unità</th>
+                                                        <th class="col-xs-1">Pr. unitario</th>
+                                                        <th class="col-xs-1">Prezzo totale</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="coassiale" class="kitf" hidden>
+                                                    <tr>
+                                                        <td>Kit Fumi Coassiale Start:</td>
+                                                        <td>2 pz</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>pz</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kit Fumi Coassiale Terminale:</td>
+                                                        <td>1 pz</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>pz</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kit Fumi Coassiale Curve tot:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>pz</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kit Fumi Coassiale Distanza:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kit Fumi Coassiale Distanza:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kit Fumi Coassiale Percorso:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Misto</option>
+                                                                <option value="contanti">Orizzontale</option>
+                                                                <option value="contanti">Verticale </option>
+                                                            </select>
+                                                            <label><span class="red">Valore massimo 5m consentito</span></label>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="sdoppiato" class="kitf" hidden>
+                                                    <tr>
+                                                        <td>Kit Fumi Sdoppiato Dist Out:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kit Fumi Sdoppiato Curve Out:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>pz</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kit Fumi Sdoppiato Dist In:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kit Fumi Sdoppiato Curve In:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>pz</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kit Fumi Sdoppiato Adueguamento:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kit Fumi Sdoppiato Diamentro:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>cm</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kit Fumi Sdoppiato Adattatori:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>pz</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="attico" class="immo" hidden>
+                                                    <tr>
+                                                        <td>Attico MQ totali:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>m2</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Attico Vani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Attico Totale piani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Attico Piano:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Attico Altezza medio salaio:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Attico Totale Descrizione accesso al tetto:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Attico Linea vita:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Si</option>
+                                                                <option value="contanti">No</option>
+                                                            </select>
+                                                            <label><span class="red">Inserire nel campo note sistema di aggancio e/o sicurezza</span></label>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="villaaschiera" class="immo" hidden>
+                                                    <tr>
+                                                        <td>Villa a schiera MQ totali:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>m2</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Villa a schiera Vani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Villa a schiera Totale piani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Villa a schiera Piano:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Villa a schiera Altezza medio salaio:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Villa a schiera Totale Descrizione accesso al tetto:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Villa a schiera Linea vita:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Si</option>
+                                                                <option value="contanti">No</option>
+                                                            </select>
+                                                            <label><span class="red">Inserire nel campo note sistema di aggancio e/o sicurezza</span></label>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="strutturarecettiva" class="immo" hidden>
+                                                    <tr>
+                                                        <td>Struttura recettiva MQ totali:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>m2</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Struttura recettiva Vani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Struttura recettiva Totale piani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Struttura recettiva Piano:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Struttura recettiva Altezza medio salaio:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Struttura recettiva Totale Descrizione accesso al tetto:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Struttura recettiva Linea vita:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Si</option>
+                                                                <option value="contanti">No</option>
+                                                            </select>
+                                                            <label><span class="red">Inserire nel campo note sistema di aggancio e/o sicurezza</span></label>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="rusticocascina" class="immo" hidden>
+                                                    <tr>
+                                                        <td>Rustico/Cascina MQ totali:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>m2</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Rustico/Cascina Vani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Rustico/Cascina Totale piani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Rustico/Cascina Piano:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Rustico/Cascina Altezza medio salaio:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Rustico/Cascina Totale Descrizione accesso al tetto:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Rustico/Cascina Linea vita:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Si</option>
+                                                                <option value="contanti">No</option>
+                                                            </select>
+                                                            <label><span class="red">Inserire nel campo note sistema di aggancio e/o sicurezza</span></label>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="ufficio" class="immo" hidden>
+                                                    <tr>
+                                                        <td>Ufficio MQ totali:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>m2</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ufficio Vani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ufficio Totale piani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ufficio Piano:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ufficio Altezza medio salaio:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ufficio Totale Descrizione accesso al tetto:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ufficio Linea vita:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Si</option>
+                                                                <option value="contanti">No</option>
+                                                            </select>
+                                                            <label><span class="red">Inserire nel campo note sistema di aggancio e/o sicurezza</span></label>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="negozio" class="immo" hidden>
+                                                    <tr>
+                                                        <td>Negozio MQ totali:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>m2</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Negozio Vani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Negozio Totale piani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Negozio Piano:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Negozio Altezza medio salaio:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Negozio Totale Descrizione accesso al tetto:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Negozio Linea vita:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Si</option>
+                                                                <option value="contanti">No</option>
+                                                            </select>
+                                                            <label><span class="red">Inserire nel campo note sistema di aggancio e/o sicurezza</span></label>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="alloggiocondominiale" class="immo" hidden>
+                                                    <tr>
+                                                        <td>Alloggio condominiale MQ totali:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>m2</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alloggio condominiale Vani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alloggio condominiale Totale piani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alloggio condominiale Piano:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alloggio condominiale Altezza medio salaio:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alloggio condominiale Totale Descrizione accesso al tetto:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alloggio condominiale Linea vita:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Si</option>
+                                                                <option value="contanti">No</option>
+                                                            </select>
+                                                            <label><span class="red">Inserire nel campo note sistema di aggancio e/o sicurezza</span></label>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="villa" class="immo" hidden>
+                                                    <tr>
+                                                        <td>Villa MQ totali:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>m2</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Villa Vani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Villa Totale piani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Villa Piano:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Villa Altezza medio salaio:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Villa Totale Descrizione accesso al tetto:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Villa Linea vita:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Si</option>
+                                                                <option value="contanti">No</option>
+                                                            </select>
+                                                            <label><span class="red">Inserire nel campo note sistema di aggancio e/o sicurezza</span></label>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="mansarda" class="immo" hidden>
+                                                    <tr>
+                                                        <td>Mansarda MQ totali:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>m2</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Mansarda Vani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Mansarda Totale piani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Mansarda Piano:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Mansarda Altezza medio salaio:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Mansarda Totale Descrizione accesso al tetto:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Mansarda Linea vita:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Si</option>
+                                                                <option value="contanti">No</option>
+                                                            </select>
+                                                            <label><span class="red">Inserire nel campo note sistema di aggancio e/o sicurezza</span></label>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="interrato" class="immo" hidden>
+                                                    <tr>
+                                                        <td>Interrato MQ totali:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>m2</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Interrato Vani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Interrato Totale piani:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Interrato Piano:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Interrato Altezza medio salaio:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Interrato Totale Descrizione accesso al tetto:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Interrato Linea vita:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Si</option>
+                                                                <option value="contanti">No</option>
+                                                            </select>
+                                                            <label><span class="red">Inserire nel campo note sistema di aggancio e/o sicurezza</span></label>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="ponteggio" class="insta" hidden>
+                                                    <tr>
+                                                        <td>Ponteggio Base:</td>
+                                                        <td>2 mt</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ponteggio Altezza:</td>
+                                                        <td>2 mt</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ponteggio Profondità:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                            <label><span class="red">Inserire nel campo note area di posizionamento</span></label>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="trabatello" class="insta" hidden>
+                                                    <tr>
+                                                        <td>Trabatello Base:</td>
+                                                        <td>2 mt</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Trabatello Altezza:</td>
+                                                        <td>2 mt</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Trabatello Profondità:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                            <label><span class="red">Inserire nel campo note area di posizionamento</span></label>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="piattaforma" class="insta" hidden>
+                                                    <tr>
+                                                        <td>Piattaforma Base:</td>
+                                                        <td>2 mt</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Piattaforma Altezza:</td>
+                                                        <td>2 mt</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Piattaforma Profondità:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                            <label><span class="red">Inserire nel campo note area di posizionamento</span></label>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="montacarichi" class="insta" hidden>
+                                                    <tr>
+                                                        <td>Montacarichi Base:</td>
+                                                        <td>2 mt</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Montacarichi Altezza:</td>
+                                                        <td>2 mt</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Montacarichi Profondità:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                            <label><span class="red">Inserire nel campo note area di posizionamento</span></label>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody id="si" class="opere" hidden>
+                                                    <tr>
+                                                        <td>Opere murarie Foro diamentro:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>cm</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Opere murarie Materiale foro:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Cemento</option>
+                                                                <option value="contanti">Mattone</option>
+                                                                <option value="contanti">Pietra</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>cm</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Opere murarie Tracce:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>cm</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Opere murarie Materiale tracce:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Cemento</option>
+                                                                <option value="contanti">Mattone</option>
+                                                                <option value="contanti">Pietra</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Opere murarie Demolizione:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>cm</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Opere murarie Materiale demo:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Cemento</option>
+                                                                <option value="contanti">Mattone</option>
+                                                                <option value="contanti">Pietra</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Opere murarie Base:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>cm</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Opere murarie Altezza:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>cm</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Opere murarie Profondità:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>cm</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody>
+
+
+                                                    <tr>
+                                                        <td>Impianto esistente Tipo:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Condensazione</option>
+                                                                <option value="contanti">Camera stagna</option>
+                                                                <option value="contanti">Camera aperta</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Impianto esistente Nome caldaia:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Impianto esistente Potenza:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>kW</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Impianto esistente Termosifoni:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>pz</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Impianto esistente Materiale impianto:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Multistrato</option>
+                                                                <option value="contanti">Rame</option>
+                                                                <option value="contanti">Acciaio</option>
+                                                                <option value="contanti">Altro</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <td>Kit idraulico Lunghezza:</td>
+                                                        <td>20-40 cm</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>cm</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kit idraulico Pezzi:</td>
+                                                        <td>2</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>pz</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tubo scarico condensa Lunghezza:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>mt</td>
+                                                        <td>1000€</td>
+                                                        <td>3000€</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tubo scarico condensa Pendenza naturale:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <select name="" class="" id="">
+                                                                <option value="">------</option>
+                                                                <option value="contanti">Si</option>
+                                                                <option value="contanti">No</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tubo scarico condensa Lunghezza pen:</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <span class="input-icon icon-right">
+                                                                <input type="text" value="" maxlength="50" class="form-control" name="" id="" />
+                                                            </span>
+                                                        </td>
+                                                        <td>cm</td>
+                                                        <td>1000€</td>
+                                                        <td>-</td>
+                                                    </tr>
+
+
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 nopadding-left nopadding-right">
+                                        <div class="spazio_low_bottom"></div>
+                                        <div class="form-title">
+                                            Note del preventivo
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea name="dett_note" class="form-control" rows="5" id="dett_note"></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="spazio_med_bottom"></div>
+                                <ul class="list-inline pull-right btn_steps">
+                                    <li><button type="button" class="btn btn-default prev-step">Indietro</button></li>
+                                    <li><button type="button" data-prev_step="2" class="btn btn-arancio next-step">Gestisci i prezzi</button></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="prev_step3">
+                                <div class="col-xs-12 nopadding-all">
+
+                                    <table cellpadding="0" cellspacing="0" border="0" class="table table-hover" id="riepilogo_preventivo_step3">
+                                        <thead class="bordered-darkorange">
+                                            <tr>
+                                                <th class="col-xs-4">Prodotto</th>
+                                                <th class="col-xs-1">Qtà</th>
+                                                <th class="col-xs-1">Costo</th>
+                                                <th class="col-xs-2">Prezzo di listino</th>
+                                                <th class="col-xs-2">Sconto</th>
+                                                <th class="col-xs-2">Prezzo scontato</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbodyid"></tbody>
+                                        <tfoot>
+                                            
+                                            <tr class="row_divider">
+                                                <td><strong>SUBTOTALE</strong></td>
+                                                <td><strong><span id="prev_subtot_qta"></span></strong></td>
+                                                <td><strong><span id="prev_subtot_costo"></span></strong></td>
+                                                <td><strong><span id="prev_subtot_prezzo"></span></strong></td>
+                                                <td><strong><span id="prev_subtot_sconto"></span> %</strong></td>
+                                                <td><strong><span id="prev_subtot_prezzo_scontato"></span> &euro;</strong></td>
+                                            </tr>
+
+                                            @* LO SCONTO SUL TOTALE E' VISIBILE E COMPATIBILE SOLO CON I PREVENTIVI ENI, PERCHE' NON NECESSITANO DI FARE FATTURA*@
+                                            <tr style="@(ViewBag.check_eni == false ? "display:none" : "")">
+                                                <td><strong>SCONTO SUL TOTALE</strong></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <input type="text" class=" form-control input-number-preventivo" data-id="sconto" id="prev_scontototale_sconto" value="0" />
+                                                        <span class="input-group-addon">%</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @*<div class="input-group">
+                                                        <input type="text" class="input-number-preventivo form-control " data-id="prezzo" id="prev_scontototale_prezzoscontato" value="" />
+                                                        <span class="input-group-addon">&euro;</span>
+                                                    </div>*@
+                                                    <div class="spinbox spinbox-horizontal spinbox-right" data-min="0" data-max="600" data-step="50">
+                                                        <input type="text" class="input-number-preventivo form-control spinbox-input" data-id="prezzo" name="prev_scontototale_prezzoscontato" id="prev_scontototale_prezzoscontato" value="0" readonly />
+                                                        <div class="spinbox-buttons	btn-group">
+
+                                                            <button type="button" class="btn spinbox-down danger">
+                                                                <i class="fa fa-minus"></i>
+                                                            </button>
+                                                            <button type="button" class="btn spinbox-up danger">
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </td>
+                                            </tr>
+
+                                            <tr class="row_totale">
+                                                <td><strong>TOTALE A PAGARE</strong></td>
+                                                <td><strong><span id="prev_tot_qta"></span></strong></td>
+                                                <td></td>
+                                                <td><strong><span id="prev_tot_prezzo"></span> &euro;</strong></td>
+                                                <td>
+                                                    <strong><span id="prev_tot_sconto"></span> %</strong>
+                                                </td>
+                                                <td>
+                                                    <strong><span id="prev_tot_prezzoscontato"></span> &euro;</strong>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <div class="spazio_low_bottom"></div>
+                                    <div class="form-title">
+                                        Note del preventivo
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="prev_note" class="form-control" rows="5" id="prev_note"></textarea>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="spazio_med_bottom"></div>
+                                <ul class="list-inline pull-right btn_steps">
+                                    <li><button type="button" class="btn btn-default prev-step">Indietro</button></li>
+                                    <li><button type="button" data-prev_step="3" class="btn btn-arancio btn-info-full next-step">Vai al riepilogo</button></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="tab-pane" role="tabpanel" id="complete">
+                                <div class="col-xs-12 col-md-4 nopadding-left">
+                                    <p><strong>DATI PREVENTIVO</strong></p>
+                                    <p>
+                                        <strong>Codice preventivo:</strong> <span id="prev_riepilogo_cod"></span><br />
+                                        <strong>Data emissione:</strong> <span id="prev_riepilogo_emissione"></span><br />
+                                        <strong>Data scadenza:</strong> <span id="prev_riepilogo_scadenza"></span><br />
+                                        <strong>Metodo di pagamento:</strong> <span id="prev_riepilogo_pagamento"></span>
+                                    </p>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <p><strong>DATI CLIENTE</strong></p>
+                                    <p>
+                                        <strong>Nome e cognome:</strong> <span id="prev_riepilogo_nome"></span><br />
+                                        <strong>Telefono:</strong> <span id="prev_riepilogo_tel"></span><br />
+                                        <strong>Mail:</strong> <span id="prev_riepilogo_mail"></span>
+                                    </p>
+
+                                </div>
+                                <div class="col-xs-12 col-md-2 nopadding-right">
+                                    <p><strong>MARGINE PRESUNTO</strong></p>
+                                    <div id="margine_presunto"></div>
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="spazio_low_bottom"></div>
+                                <div class="col-xs-12 nopadding-all">
+                                    @*<p>Questa è la tabella descrittiva in quarta pagina del preventivo, come la vedrà il cliente.</p>*@
+                                    <table cellpadding="0" cellspacing="0" border="0" class="table table-hover" id="tabellaPreventivoDettagliato">
+                                        <thead class="bordered-darkorange">
+                                            <tr>
+                                                <th class="col-xs-8">Prodotto</th>
+                                                <th class="col-xs-1">Qtà</th>
+                                                <th class="col-xs-1">Prezzo</th>
+                                                <th class="col-xs-1">Sconto</th>
+                                                <th class="col-xs-1">Prezzo scontato</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="prev_riepilogo"></tbody>
+                                        <tfoot>
+
+                                            <tr class="row_divider">
+                                                <td><strong>SUBTOTALE</strong></td>
+                                                <td><strong><span id="prev_riepilogo_qta" class="hidden"></span></strong></td>
+                                                <td><strong><span id="prev_riepilogo_prezzo"></span> &euro;</strong></td>
+                                                <td><strong><span id="prev_riepilogo_sconto"></span> %</strong></td>
+                                                <td><strong><span id="prev_riepilogo_prezzo_scontato"></span> &euro;</strong></td>
+                                            </tr>
+
+                                            <tr style="@(ViewBag.check_eni == false ? "display:none":"")">
+                                                <td><strong>SCONTO SUL TOTALE</strong></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><strong><span id="prev_riepilogo_sconto_subtot" class="hidden"></span> %</strong></td>
+                                                <td><strong><span id="prev_riepilogo_prezzoscontato_subtot"></span> &euro;</strong></td>
+                                            </tr>
+
+                                            <tr class="row_totale">
+                                                <td><strong>TOTALE A PAGARE</strong></td>
+                                                <td><strong><span id="prev_riepilogo_tot_qta"></span></strong></td>
+                                                <td><strong><span id="prev_riepilogo_tot_prezzo"></span> &euro;</strong></td>
+                                                <td>
+                                                    <strong><span id="prev_riepilogo_tot_sconto"></span> %</strong>
+                                                </td>
+                                                <td>
+                                                    <strong><span id="prev_riepilogo_tot_prezzoscontato"></span> &euro;</strong>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                    <div class="spazio_low_bottom"></div>
+                                    <div class="form-title">
+                                        Note del preventivo
+                                    </div>
+                                    <div class="form-group">
+                                        <p id="prev_note_riepilogo"></p>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="spazio_med_bottom"></div>
+                                <div class="text-align-left red col-xs-12"><em><strong>ATTENZIONE!</strong> Creando il preventivo verrà salvata la richiesta con i dati del preventivo!</em></div>
+                                <div class="clearfix"></div>
+                                <ul class="list-inline pull-right btn_steps">
+                                    <li><button type="button" class="btn btn-default prev-step">Indietro</button></li>
+                                    <li><button type="button" data-prev_step="4" class="btn btn-arancio btn-info-full next-step">CREA PREVENTIVO</button></li>
+                                </ul>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi Preventivatore</button>
+                @*<button type="button" class="btn btn-primary" id="salvaInvoiceInst">Salva</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal scegli prodotto per preventivo -->
+<div class="modal bs-example-modal-lg fade" id="addProdottoPreventivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="">Scegli un prodotto</h4>
+            </div>
+            <div class="modal-body">
+                <input id="IdAddProdottoPreventivo" name="IdAddProdottoPreventivo" value="" type="hidden" />
+                <div id="boxProdottiPreventivo"></div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="deleteProdPrev()" data-dismiss="modal">Annulla</button>
+                <button type="button" class="btn btn-primary" id="add_product_to_preventivo">Inserisci nel preventivo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal scegli accessorio per preventivo -->
+<div class="modal bs-example-modal-lg fade" id="addAccessorioPreventivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="">Scegli un accessorio</h4>
+                </div>
+                <div class="modal-body">
+                    <input id="IdAddAccPreventivo" name="IdAddAccPreventivo" value="" type="hidden" />
+                    <div id="boxAccessoriPreventivo"></div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="deleteProdPrev()" data-dismiss="modal">Annulla</button>
+                    <button type="button" class="btn btn-primary" id="add_accessorio_to_preventivo">Inserisci nel preventivo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--Fuelux Spinbox-->
+<script src="~/assets/js/fuelux/spinbox/fuelux.spinbox.min.js"></script>
+
+<!-- JS DEL PREVENTIVATORE -->
+<script src="~/Scripts/customScriptPreventivatore.js"></script>
+
+
